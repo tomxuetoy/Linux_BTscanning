@@ -20,21 +20,26 @@ int main(int argc, char **argv)
         perror("opening socket");
         exit(1);
     }
+
     len = 8;
     max_rsp = 255;
     flags = IREQ_CACHE_FLUSH;
     ii = (inquiry_info*)malloc(max_rsp * sizeof(inquiry_info));
 
+    // get ii
     num_rsp = hci_inquiry(dev_id, len, max_rsp, NULL, &ii, flags);
     if( num_rsp < 0 ) perror("hci_inquiry");
+
     for (i = 0; i < num_rsp; i++) {
         ba2str(&(ii+i)->bdaddr, addr);
         memset(name, 0, sizeof(name));
+        // get name from ii
         if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
                                  name, 0) < 0)
             strcpy(name, "[unknown]");
         printf("%s %s/n", addr, name);
     }
+
     free( ii );
     close( sock );
     return 0;

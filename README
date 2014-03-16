@@ -9,8 +9,13 @@ http://hi.baidu.com/benbenzhang/item/e1869c3dd517bfcf392ffadd
 Platform:
 Raspberry
 
-Preparation:
-sudo apt-get install libbluetooth-dev
-
 Compile:
 gcc -o simplescan simplescan.c -lbluetooth
+
+Then meet problem:
+fatal error: bluetooth/bluetooth.h: No such file or directory
+
+The solution is below:
+(Preparation)
+sudo apt-get install libbluetooth-dev
+ 
