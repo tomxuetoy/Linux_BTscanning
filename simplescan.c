@@ -16,6 +16,7 @@ int main(int argc, char **argv)
     char name[248] = { 0 };
     dev_id = hci_get_route(NULL);
     sock = hci_open_dev( dev_id );
+    printf("%d - %d \n", dev_id, sock);
     if (dev_id < 0 || sock < 0) {
         perror("opening socket");
         exit(1);
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
         if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
                                  name, 0) < 0)
             strcpy(name, "[unknown]");
-        printf("%s %s/n", addr, name);
+        printf("%s %s \n", addr, name);
     }
 
     free( ii );
